@@ -16,65 +16,69 @@
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
           <a class="navbar-brand">ながのCAKE</a>
-          <ul class="navbar-nav ml-auto">
-            <% if admin_signed_in? %>
-              <li class="nav-link">
-                <%= link_to "商品一覧", admin_items_path, class: "btn" %>
-              </li>
-              <li class="nav-link">
-                <%= link_to "会員一覧", admin_customers_path, class: "btn" %>
-              </li>
-              <li class="nav-link">
-                <%= link_to "注文履歴一覧", admin_root_path, class: "btn" %>
-              </li>
-              <li class="nav-link">
-                <%= link_to "ジャンル一覧", admin_genres_path, class: "btn" %>
-              </li>
-              <li class="nav-link">
-                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-outline-success"%>
-              </li>
+          <div class="row">
+            <ul class="navbar-nav ml-auto">
+              <% if admin_signed_in? %>
+                <li class="nav-link">
+                  <%= link_to "商品一覧", admin_items_path, class: "btn border-secondary" %>
+                </li>
+                <li class="nav-link">
+                  <%= link_to "会員一覧", admin_customers_path, class: "btn border-secondary" %>
+                </li>
+                <li class="nav-link">
+                  <%= link_to "注文履歴一覧", admin_root_path, class: "btn border-secondary" %>
+                </li>
+                <li class="nav-link">
+                  <%= link_to "ジャンル一覧", admin_genres_path, class: "btn border-secondary" %>
+                </li>
+                <li class="nav-link">
+                  <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn border-secondary"%>
+                </li>
+  
+              <% elsif customer_signed_in? %>
+                <p>ようこそ、<%= current_customer.last_name %>さん！</p>
+                <li class="nav-link">
+                  <%= link_to "マイページ", customers_my_page_path, class: "btn border-secondary" %>
+                </li>
+                <li class="nav-link">
+                  <%= link_to "商品一覧", items_path, class: "btn border-secondary" %>
+                </li>
+                <li class="nav-link">
+                  <%= link_to "カート", cart_items_path, class: "btn border-secondary" %>
+                </li>
+                <li class="nav-link">
+                  <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: "btn border-secondary" %>
+                </li>
+  
+  
 
-            <% elsif customer_signed_in? %>
-              <p>ようこそ、<%= current_customer.last_name %>さん！</p>
-              <li class="nav-link">
-                <%= link_to "マイページ", customers_my_page_path, class: "btn" %>
-              </li>
-              <li class="nav-link">
-                <%= link_to "商品一覧", items_path, class: "btn" %>
-              </li>
-              <li class="nav-link">
-                <%= link_to "カート", cart_items_path, class: "btn" %>
-              </li>
-              <li class="nav-link">
-                <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: "btn" %>
-              </li>
-
-
-
-            <% else %>
-              <li class="nav-link">
-                <%= link_to "About", about_path, class: "btn btn-outline-success"  %>
-              </li>
-              <li class="nav-link">
-                <%= link_to "商品一覧", admin_items_path, class: "btn" %>
-              </li>
-              <li class="nav-link">
-                <%= link_to "新規登録", new_customer_registration_path, class: "btn" %>
-              </li>
-              <li class="nav-link">
-                <%= link_to "ログイン", new_customer_session_path, class: "btn" %>
-              </li>
-            <% end %>
-          </ul>
+              <% else %>
+                <li class="nav-link">
+                  <%= link_to "About", about_path, class: "btn border-secondary"  %>
+                </li>
+                <li class="nav-link">
+                  <%= link_to "商品一覧", admin_items_path, class: "btn border-secondary" %>
+                </li>
+                <li class="nav-link">
+                  <%= link_to "新規登録", new_customer_registration_path, class: "btn border-secondary" %>
+                </li>
+                <li class="nav-link">
+                  <%= link_to "ログイン", new_customer_session_path, class: "btn border-secondary" %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="row">
+            <div class="col">
+              <%= search_form_for @seach do |f| %>
+                <%= f.search_field :name_cont, placeholder: "Seach" %>
+                <%= f.submit "検索" %>
+              <% end %>
+            </div>
+          </div>
         </div>
       </nav>
     </header>
-
-    <% if flash[:notice] %>
-      <div id="notice">
-        <%= flash[:notice] %>
-      </div>
-    <% end %>
 
     <%= yield %>
   </body>

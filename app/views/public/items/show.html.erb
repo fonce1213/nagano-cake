@@ -1,2 +1,19 @@
-<h1>Public::Items#show</h1>
-<p>Find me in app/views/public/items/show.html.erb</p>
+<div class="container">
+  <!-- ジャンル検索を部分テンプレートで -->
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="Item">
+        <%= image_tag @item.get_image(100,100) %>
+        <%= @item.name %>
+        <%= @item.introduction %>
+        <%= @item.price %>
+
+        <%= form_with model: @cart_item, url: cart_items_path do |f| %>
+          <%= f.hidden_field :item_id, :value => @item.id %>
+          <%= f.select :amount, *[1..10] %>
+          <%= f.submit "カートに入れる", class: "btn btn-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

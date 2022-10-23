@@ -1,9 +1,10 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
-      <h4 class="mt-3">会員一覧</h4>
-
-      <table>
+    <div class="col-1 text-center bg-light">会員一覧</div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <table class="table">
         <thead>
           <tr>
             <th>会員ID</th>
@@ -16,13 +17,13 @@
           <% @customers.each do |customer| %>
           <tr>
             <td><%= customer.id %></td>
-            <td><%= link_to customer.last_name + customer.first_name, admin_customer_path(customer.id), class: "" %></td>
+            <td><u><%= link_to customer.last_name + customer.first_name, admin_customer_path(customer.id), class: "" %></u></td>
             <td><%= customer.email %></td>
             <td>
               <% if customer.is_deleted == false %>
-                有効
+                <b class="text-success">有効</b>
               <% else %>
-                退会
+                <b class="text-muted">退会</b>
               <% end %>
             </td>
           </tr>
@@ -31,4 +32,5 @@
       </table>
     </div>
   </div>
+  <%= paginate @customers %>
 </div>

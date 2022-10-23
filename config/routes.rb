@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   end
   namespace :public do
 
-    get 'cart_items/update'
-    get 'cart_items/create'
+
+
   end
   namespace :admin do
     get 'order_items/update'
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'homes#top'
     resources :genres, only: [:index, :create, :edit, :update]
-    resources :items, only: [:new, :index, :create, :show, :edit]
+    resources :items, only: [:new, :index, :create, :show, :edit, :update]
 
   end
 
@@ -47,6 +47,10 @@ Rails.application.routes.draw do
   patch '/customers/my_page' => 'public/customers#update'
   get '/items' => 'public/items#index'
   get '/cart_items' => 'public/cart_items#index'
+  post 'cart_items' => 'public/cart_items#create'
+  delete 'cart_items' => 'public/cart_items#destroy', as: 'destroy_cart_items'
+  delete 'cart_items' => 'public/cart_items#destroy_all', as: 'destroy_all_cart_items'
+  patch 'cart_items/:id' => 'public/cart_items#update' , as: 'update_cart_item'
   get '/customers/information/edit' => 'public/customers#edit'
   get '/addresses' => 'public/addresses#index'
   post '/addresses' => 'public/addresses#create'
@@ -56,11 +60,14 @@ Rails.application.routes.draw do
   get '/orders' => 'public/orders#index'
   get '/customers/unsubscribe' => 'public/customers#unsubscribe'
 
+  get '/items' => 'public/items#index', as: 'index_items'
+  get '/items/:id' => 'public/items#show', as: 'show_items'
+
   namespace :public do
     get 'root_path' => 'public/homes#top'
     post '/customers' => 'registrations#create'
-    get 'items/index'
-    get 'items/show'
+
+
 
 
   end

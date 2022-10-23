@@ -2,40 +2,41 @@
   <div class="row">
     <div class="col-lg-10">
       <h5>配送先登録 / 一覧</h5>
-      <table class="table">
-        <%= form_with model: @address, url: addresses_path do |f| %>
-        <tr>
-          <td>郵便番号(ハイフンなし)</td>
-          <td>
-            <div class="field">
-              <%= f.text_field :postal_code, placeholder: "0000000" %>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>住所</td>
-          <td colspan="2">
-            <div class="field">
-              <%= f.text_field :address, size: "50", placeholder: "東京都渋谷区代々木神町0-0" %>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>宛名</td>
-          <td>
-            <div class="field">
-              <%= f.text_field :name, placeholder: "令和道子" %>
-            </div>
-          </td>
-          <td>
-            <div class="action">
-              <%= f.submit "新規登録", class: "btn btn-success" %>
-            </div>
-          </td>
-        </tr>
-        <% end %>
-      </table>
-
+      
+      <%= form_with model: @address, url: addresses_path do |f| %>
+        <table class="table">
+          <tr>
+            <td>郵便番号(ハイフンなし)</td>
+            <td>
+              <div class="field">
+                <%= f.text_field :postal_code, placeholder: "0000000" %>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>住所</td>
+            <td colspan="2">
+              <div class="field">
+                <%= f.text_field :address, size: "50", placeholder: "東京都渋谷区代々木神町0-0" %>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>宛名</td>
+            <td>
+              <div class="field">
+                <%= f.text_field :name, placeholder: "令和道子" %>
+              </div>
+            </td>
+            <td>
+              <div class="action">
+                <%= f.submit "新規登録", class: "btn btn-success" %>
+              </div>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+      
       <table class="table">
         <thead>
           <tr>

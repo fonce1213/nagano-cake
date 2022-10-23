@@ -1,2 +1,34 @@
-<h1>Public::Items#index</h1>
-<p>Find me in app/views/public/items/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <!-- ジャンル検索を部分テンプレートで -->
+    <div class="col-lg-8">
+      <h5>商品一覧</h5><p>全<%= @items.count %>件</p>
+
+      <% if @seach_items %>
+        <% @seach_items.each do |item| %>
+          <div class="Item">
+            <%= link_to show_items_path(item.id) do %>
+              <%= image_tag item.get_image(100,100) %>
+              <%= item.name %>
+              <%= item.price.to_s(:delimited) %>
+            <% end %>
+          </div>
+        <% end %>
+      
+      <% else %>
+        <% @items.each do |item| %>
+          <div class="Item">
+            <%= link_to show_items_path(item.id) do %>
+              <%= image_tag item.get_image(100,100) %>
+              <%= item.name %>
+              <%= item.price.to_s(:delimited) %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+      
+      
+    </div>
+  </div>
+</div>
+

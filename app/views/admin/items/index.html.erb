@@ -1,7 +1,13 @@
 <div class="container">
     <div class="row">
-        <div>商品一覧</div>
-        <table>
+        <div class="col-1 text-center bg-light">商品一覧</div>
+        <div class="col">
+            <%= link_to "+", new_admin_item_path, class: "btn btn-light rounded-circle p-0", style: "width:2rem;height:2rem" %>
+        </div>
+    </div>
+    
+    <div class="row">
+        <table class="table col-lg-10">
             <thead>
                 <tr>
                     <th>商品ID</th>
@@ -16,20 +22,26 @@
                 <tr>
                     <td><%= item.id %></td>
                     <td>
-                        <%= link_to item.name, admin_item_path(item.id) %>
+                        <u><%= link_to item.name, admin_item_path(item.id) %></u>
                     </td>
-                    <td><%= item.price %></td>
+                    <td><%= item.price.to_s(:delimited) %></td>
                     <td><%= Genre.find(item.genre_id).name %></td>
                     <td>
                         <% if item.is_active == true %>
-                            販売中
+                            <b class="text-success">販売中</b>
                         <% else %>
-                            販売停止中
+                            <b class="text-muted">販売停止中</b>
                         <% end %>
                     </td>
                 </tr>
                 <% end %>
+                
             </tbody>
         </table>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <%= paginate @items %>
+        </div>
     </div>
 </div>
