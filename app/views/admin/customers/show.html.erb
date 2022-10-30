@@ -46,8 +46,12 @@
       <% end %>
     </div>
   </div>
-      
+  
+  <div class="row">
+    <div class="col-2">
       <%= link_to "編集する", edit_admin_customer_path(@customer.id), class: "btn btn-success" %>
+    </div>
+    <div class="col-3">
       <%= link_to "注文履歴一覧を見る", root_path, class: "btn btn-primary" %> <!-- 顧客ごとを作りたい -->
     </div>
   </div>

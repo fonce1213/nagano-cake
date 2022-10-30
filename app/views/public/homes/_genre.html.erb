@@ -1,0 +1,10 @@
+<div class="col-2 border">
+  <div class="row border-bottom">
+    <div class="col text-center">ジャンル検索</div>
+  </div>
+  <% @genres.each do |genre| %>
+    <div class="row m-2">
+      <%= link_to genre.name, items_path(genre_id: genre.id) %>
+    </div>
+  <% end %>
+</div>

@@ -10,10 +10,11 @@ class Public::AddressesController < ApplicationController
 
   def create
     @address = Address.new(address_params)
+    @addresses = Address.all
     if @address.save
       redirect_to addresses_path
     else
-      render addresses_path
+      render :index
     end
   end
 

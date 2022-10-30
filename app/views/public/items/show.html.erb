@@ -1,18 +1,34 @@
 <div class="container">
-  <!-- ジャンル検索を部分テンプレートで -->
-  <div class="row">
-    <div class="col-lg-8">
-      <div class="Item">
-        <%= image_tag @item.get_image(100,100) %>
-        <%= @item.name %>
-        <%= @item.introduction %>
-        <%= @item.price %>
-
+  <div class="row my-2">
+    <%= render 'public/homes/genre', genre: @genre %>
+    
+  <div class="col-10">
+    <div class="row m-2">
+      <div class="col-4 border">
+        <%= image_tag @item.get_image(300,300) %>
+      </div>
+      <div class="col-8 border">
+        <div class="row">
+          <h4><%= @item.name %></h4>
+        </div>
+        <div class="row">
+          <%= @item.introduction %>
+        </div>
+        <div class="row">
+          <h5><%= number_to_currency(@item.with_tax_price, unit: "￥", format: "%u%n") %></h5> (税込)
+        </div>
+        <div class="row">
         <%= form_with model: @cart_item, url: cart_items_path do |f| %>
           <%= f.hidden_field :item_id, :value => @item.id %>
-          <%= f.select :amount, *[1..10] %>
-          <%= f.submit "カートに入れる", class: "btn btn-success" %>
+          <%= f.hidden_field :customer_id, :value => current_customer.id %>
+          <div class="col-1">
+            <%= f.select :amount, *[1..10], :prompt => "個数選択" %>
+          </div>
+          <div class="col-1">
+            <%= f.submit "カートに入れる", class: "btn btn-success" %>
+          </div>
         <% end %>
+        </div>
       </div>
     </div>
   </div>

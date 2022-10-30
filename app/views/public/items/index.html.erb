@@ -1,33 +1,28 @@
 <div class="container">
-  <div class="row">
-    <!-- ジャンル検索を部分テンプレートで -->
-    <div class="col-lg-8">
-      <h5>商品一覧</h5><p>全<%= @items.count %>件</p>
-
-      <% if @seach_items %>
-        <% @seach_items.each do |item| %>
-          <div class="Item">
+  <div class="row my-2">
+   
+    <%= render 'public/homes/genre', genres: @genres %>
+    
+    <div class="col-10">
+      <div class="row m-2">
+        <h5><%= @title %></h5>　(全<%= @count %>件)
+      </div>
+      <div class="row row-cols-4">
+        <% @search_items.each do |item| %>
+          <div class="col">
             <%= link_to show_items_path(item.id) do %>
-              <%= image_tag item.get_image(100,100) %>
-              <%= item.name %>
-              <%= item.price.to_s(:delimited) %>
+              <%= image_tag item.get_image(100,100) %></br>
+              <%= item.name %></br>
+              <%= number_to_currency(item.price, unit: "￥", format: "%u%n") %>
             <% end %>
           </div>
         <% end %>
-      
-      <% else %>
-        <% @items.each do |item| %>
-          <div class="Item">
-            <%= link_to show_items_path(item.id) do %>
-              <%= image_tag item.get_image(100,100) %>
-              <%= item.name %>
-              <%= item.price.to_s(:delimited) %>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-      
-      
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-4">
+          <%= paginate @search_items %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

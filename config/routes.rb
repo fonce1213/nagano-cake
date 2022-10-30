@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-
-  namespace :public do
-    get 'orders/new'
-    get 'orders/create'
-
-    get 'orders/show'
-  end
   namespace :public do
 
 
@@ -21,8 +14,7 @@ Rails.application.routes.draw do
     get 'order_items/update'
   end
   namespace :admin do
-    get 'orders/show'
-    get 'orders/update'
+    resources :orders, only: [:show, :update]
   end
   namespace :admin do
     resources :customers, only: [:index, :show, :edit, :update]
@@ -62,15 +54,22 @@ Rails.application.routes.draw do
 
   get '/items' => 'public/items#index', as: 'index_items'
   get '/items/:id' => 'public/items#show', as: 'show_items'
+  
+  # orders routes
+  get 'orders/new' => 'public/orders#new', as: 'new_orders'
+  post 'orders/confirm' => 'public/orders#confirm', as: 'confirm_orders'
+  get 'orders/complete' => 'public/orders#complete', as: 'complete_orders'
+  post 'orders' => 'public/orders#create', as: 'create_orders'
+  get 'orders' => 'publi/orders#index', as: 'index_orders'
+  get 'orders/:id' => 'public/orders#show', as: 'show_orders'
 
   namespace :public do
     get 'root_path' => 'public/homes#top'
     post '/customers' => 'registrations#create'
-
-
-
-
   end
+  
+  resources :items, params: :id, only: [:index, :show]
+  
   # 管理者用
   # URL /admin/sign_in ...
   devise_for :admin, skip: [:registrations, :passwords], controllers: {

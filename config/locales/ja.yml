@@ -4,6 +4,12 @@ ja: # 日本語の設定を行う
       payment: # カラム名
         credit_card: "クレジットカード"
         transfer: "銀行振込"
+      order_status:
+        waiting_for_payment: "入金待ち"
+        payment_confirmation: "入金確認"
+        doing: "製作中"
+        preparing_to_ship: "発送準備中"
+        sent: "発送済み"
 
     order_item:
       making_status:

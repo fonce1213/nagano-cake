@@ -64,3 +64,5 @@ gem 'kaminari','~> 1.2.1'
 gem 'net-smtp'
 
 gem 'ransack'
+
+gem 'pry-byebug', group: :development

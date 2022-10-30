@@ -1,2 +1,76 @@
-<h1>Public::Orders#show</h1>
-<p>Find me in app/views/public/orders/show.html.erb</p>
+<div class="container">
+  <div class="row m-2">
+    <div class="col-2 text-center bg-light">注文履歴詳細</div>
+  </div>
+  <div class="row m-2">
+    <div class="col-7">
+      <b>注文情報</b>
+      <table class="table table-bordered">
+        <tr class="">
+          <td class="col-3 bg-light">注文日</td>
+          <td><%= @order.created_at.strftime("%Y/%m/%d") %></td>
+        </tr>
+        <tr>
+          <td class="bg-light">配送先</td>
+          <td>
+            〒<%= @order.postal_code %></br>
+            <%= @order.address %></br>
+            <%= @order.name %>
+          </td>
+        </tr>
+        <tr>
+          <td class="bg-light">支払方法</td>
+          <td><%= @order.payment_i18n %></td>
+        </tr>
+        <tr>
+          <td class="bg-light">ステータス</td>
+          <td><%= @order.order_status_i18n %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-5">
+      <b>請求情報</b>
+      <table class="talbe table-bordered">
+        <tr>
+          <td class="col-4 bg-light">商品合計</td>
+          <td><%= (@order.total_price - @postage).to_s(:delimited) %></td>
+        </tr>
+        <tr class="border">
+          <td class="col-4 bg-light">配送料</td>
+          <td><%= @postage.to_s(:delimited) %></td>
+        </tr>
+        <tr>
+          <td class="col-4 bg-light"><b>ご請求額</b></td>
+          <td><%= @order.total_price.to_s(:delimited) %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row m-2">
+    <div class="col-9">
+      <b>注文内容</b>
+      <table class="table table-bordered">
+        <thead class="bg-light">
+          <tr>
+            <td>商品</td>
+            <td>単価(税込)</td>
+            <td>個数</td>
+            <td>小計</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @total = 0 %>
+          <% @order_items.each do |order_item| %>
+          <tr>
+            <td><%= order_item.item.name %></td>
+            <td><%= order_item.item.with_tax_price %></td>
+            <td><%= order_item.amount %></td>
+            <td><%= (order_item.item.with_tax_price * order_item.amount) %></td>
+          </tr>
+          <% @total += (order_item.item.with_tax_price * order_item.amount) %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
