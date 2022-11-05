@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row my-2">
-    <%= render 'genre', genre: @genre %>
+    <%= render 'genre', genres: @genres %>
     
-    <div class="col-10">
+    <div class="col-5 my-5 offset-md-2">
       ようこそ、ながのCAKEへ！</br>
       このサイトは、ケーキ販売のECサイトになります。</br>
       会員でない方も商品の閲覧はできますが、</br>
@@ -23,5 +23,8 @@
         </div>
       <% end %>
     </div>
+  </div>
+  <div class="col offset-md-9">
+    <%= link_to "全ての商品を見る＞", '/items' %>
   </div>
 </div>

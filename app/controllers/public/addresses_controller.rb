@@ -1,7 +1,7 @@
 class Public::AddressesController < ApplicationController
   def index
     @address = Address.new
-    @addresses = Address.all
+    @addresses = current_customer.addresses.all
   end
 
   def edit
@@ -9,8 +9,8 @@ class Public::AddressesController < ApplicationController
   end
 
   def create
-    @address = Address.new(address_params)
-    @addresses = Address.all
+    @address = current_customer.addresses.build(address_params)
+    @addresses = current_customer.addresses.all
     if @address.save
       redirect_to addresses_path
     else
@@ -37,6 +37,8 @@ class Public::AddressesController < ApplicationController
 
   private
   def address_params
-    params.require(:address).permit(:postal_code, :address, :name)
+    params.require(:address).permit(:postal_code, :address, :name, :customer_id)
   end
+  
+  before_action :authenticate_customer!
 end

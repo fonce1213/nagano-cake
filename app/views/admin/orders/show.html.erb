@@ -1,5 +1,85 @@
 <div class="container">
   <div class="row">
-    <div class="col-3 m-2 text-center bg-light">注文履歴詳細</div>
+    <div class="col-2 m-2 text-center bg-light">注文履歴詳細</div>
+  </div>
+  <div class="row">
+    <table class="table table-borderless", style="width: 500px;">
+      <tr>
+        <td>購入者</td>
+        <td><%= @order.customer.last_name %><%= @order.customer.first_name %></td> <!-- 顧客ごとのリンクを作る -->
+      </tr>
+      <tr>
+        <td>注文日</td>
+        <td><%= @order.created_at.strftime("%Y/%m/%d") %></td>
+      </tr>
+      <tr>
+        <td>配送先</td>
+        <td>
+          〒<%= @order.postal_code %> <%= @order.address %></br>
+          <%= @order.name %>
+        </td>
+      </tr>
+      <tr>
+        <td>支払方法</td>
+        <td><%= @order.payment_i18n %></td>
+      </tr>
+      <tr>
+        <td>注文ステータス</td>
+        <td>
+          <!-- enumのセレクトボックス -->
+          <%= form_with model: @order, url: admin_order_path(@order.id) do |f| %>
+            <%= f.select :order_status,  Order.order_statuses.keys.map {|k| [I18n.t("enums.order.order_status.#{k}"), k]} %>
+            <%= f.submit "更新", class: "btn btn-success" %>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-8">
+      <table class="table table-borderless border-top border-bottom">
+        <thead class="bg-light">
+          <tr>
+            <th>商品名</th>
+            <th>単価( 税込 )</th>
+            <th>数量</th>
+            <th>小計</th>
+            <th>製作ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order.order_items.each do |order_item| %>
+          <tr>
+            <td class="align-middle"><%= order_item.item.name %></td>
+            <td class="align-middle"><%= order_item.price.to_s(:delimited) %></td>
+            <td class="align-middle"><%= order_item.amount %></td>
+            <td class="align-middle"><%= order_item.subtotal.to_s(:delimited) %></td>
+            <td class="align-middle">
+              <%= form_with model: OrderItem, url: admin_order_item_path(order_item.id), method: :patch do |f| %>
+                <%= f.select :making_status,  OrderItem.making_statuses.keys.map {|k| [I18n.t("enums.order_item.making_status.#{k}"), k]} %>
+              　<%= f.submit "更新", class: "btn btn-success" %>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-4">
+      <table class="table table-borderless">
+        <tr>
+          <th>商品合計</th>
+          <td><%= number_to_currency(@order.total_price, unit: "円", format: "%n%u") %></td>
+        </tr>
+        <tr>
+          <th>送料</th>
+          <td><%= number_to_currency(@order.postage, unit: "円", format: "%n%u") %></td>
+        </tr>
+        <tr>
+          <th>請求金額合計</th>
+          <td><%= number_to_currency(@order.total_price + @order.postage, unit: "円", format: "%n%u") %></td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>

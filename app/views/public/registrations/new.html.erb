@@ -1,70 +1,45 @@
 <div class="container">
-  <div class="row">
-    <div class="col-lg-10 px-5">
-
-      <h4>新規会員登録</h4>
-
+  <div class="row m-2">
+    <div class="col-2 text-center bg-light">新規会員登録</div>
+  </div>
+  <div class="row m-2">
       <%= form_with model: @customer, url: customer_registration_path do |f| %>
         <%= render "public/shared/error_messages", resource: resource %>
 
-        <table class="table">
+        <table class="table table-borderless m-2">
           <tbody>
             <tr>
               <td>名前</td>
-              <td>
-                <div class="field">
-                  <%= f.label :last_name, "(姓)" %>
-                  <%= f.text_field :last_name, autofocus: true, placeholder: "令和" %>
-                </div>
-              </td>
-              <td>
-                <div class="field">
-                  <%= f.label :first_name, "(名)" %>
-                  <%= f.text_field :first_name, placeholder: "道子" %>
-                </div>
-              </td>
+              <td style="width: 9%"><%= f.label :last_name, "(姓)" %></td>
+              <td><%= f.text_field :last_name, autofocus: true, placeholder: "令和" %></td>
+              <td style="width: 9%"><%= f.label :first_name, "(名)" %></td>
+              <td><%= f.text_field :first_name, placeholder: "道子" %></td>
             </tr>
             <tr>
               <td>フリガナ</td>
-              <td>
-                <div class="field">
-                  <%= f.label :last_name_kana, "(セイ)" %>
-                  <%= f.text_field :last_name_kana, placeholder: "レイワ" %>
-                </div>
-              </td>
-              <td>
-                <div class="field">
-                  <%= f.label :first_name_kana, "(メイ)" %>
-                  <%= f.text_field :first_name_kana, placeholder: "ミチコ" %>
-                </div>
-              </td>
+              <td><%= f.label :last_name_kana, "(セイ)" %></td>
+              <td><%= f.text_field :last_name_kana, placeholder: "レイワ" %></td>
+              <td><%= f.label :first_name_kana, "(メイ)" %></td>
+              <td><%= f.text_field :first_name_kana, placeholder: "ミチコ" %></td>
             </tr>
             <tr>
               <td>メールアドレス</td>
-              <td>
-                <div class="field">
-                  <%= f.email_field :email, placeholder: "sample@example.com" %>
-                </div>
-              </td>
+              <td></td>
+              <td><%= f.email_field :email, placeholder: "sample@example.com" %></td>
             </tr>
             <tr>
               <td>郵便番号(ハイフンなし)</td>
-              <td>
-                <div class="field">
-                  <%= f.text_field :postal_code, placeholder: "0000000" %>
-                </div>
-              </td>
+              <td></td>
+              <td><%= f.text_field :postal_code, placeholder: "0000000" %></td>
             </tr>
             <tr>
               <td>住所</td>
-              <td colspan="2">
-                <div class="field">
-                  <%= f.text_field :address, placeholder: "東京都渋谷区代々木神園町0-0" %>
-                </div>
-              </td>
+              <td></td>
+              <td colspan="3"><%= f.text_field :address, placeholder: "東京都渋谷区代々木神園町0-0", size: "55" %></td>
             </tr>
             <tr>
               <td>電話番号(ハイフンなし)</td>
+              <td></td>
               <td>
                 <div class="field">
                   <%= f.text_field :telephone_number, placeholder: "0000000000" %>
@@ -73,6 +48,7 @@
             </tr>
             <tr>
               <td>パスワード(6文字以上)</td>
+              <td></td>
               <td>
                 <div class="field">
                   <%= f.password_field :password, autocomplete: "new-password" %>
@@ -81,22 +57,26 @@
             </tr>
             <tr>
               <td>パスワード(確認用)</td>
+              <td></td>
               <td>
                 <div class="field">
                   <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
                 </div>
               </td>
             </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td><%= f.submit "新規登録", class: "btn btn-success btn-block font-weight-bold" %></td>
+            </tr>
           </tbody>
         </table>
-
-        <div class="actions">
-          <%= f.submit "新規登録", class: "btn btn-success" %>
-        </div>
       <% end %>
-
-      <h5>既に登録済みの方</h5>
+  </div>
+  <div class="row">
+    <div class="col-2 text-center bg-light">既に登録済みの方</div>
+  </div>
+  <div class="row">
       <%= render "public/shared/links" %>
-    </div>
   </div>
 </div>

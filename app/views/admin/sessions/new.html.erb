@@ -1,9 +1,9 @@
 <div class="container">
-  <div class="row">
-    <h5 class="col-2 ml-5 bg-light text-center">管理者ログイン</h5>
+  <div class="row m-2">
+    <div class="col-2 bg-light text-center">管理者ログイン</div>
   </div>
   <%= form_with model: @admin, url: session_path(resource_name) do |f| %>
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center mt-4">
       <p class="col-2">メールアドレス</p>
       <div class="col-4">
         <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@example.com", size: "50" %>
@@ -15,7 +15,7 @@
         <%= f.password_field :password, autocomplete: "current-password", size: "50" %>
       </div>
     </div>
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center mt-4">
       <div class="col-2">
         <%= f.submit "ログイン", class: "btn btn-primary btn-block" %>
       </div>

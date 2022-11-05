@@ -1,15 +1,13 @@
 class Public::OrdersController < ApplicationController
   def new
     @order = Order.new
-    #@order_item = OrderItem.new
   end
   
   def confirm
-    #@order_item = OrderItem.new
     @cart_items = current_customer.cart_items.all
     @order = Order.new(order_params)
     @postage = 800
-    #@address = Address.find(params[:order][:address_id])
+    @address = Address.find(params[:order][:address_id])
     
     if params[:order][:select_address] == "0"
       @order.postal_code = current_customer.postal_code
@@ -24,7 +22,6 @@ class Public::OrdersController < ApplicationController
   end
   
   def create
-    #@order_item = OrderItem.new(order_item_params)
     cart_items = current_customer.cart_items.all
     @order = Order.new(order_params)
     @order.save
@@ -38,17 +35,18 @@ class Public::OrdersController < ApplicationController
       order_item.save
     end
     redirect_to complete_orders_path
-    cart_items.destroy_all
+    current_customer.cart_items.destroy_all
   end
 
   def index
-    @orders = Order.all
-    @order_items = OrderItem.all
+    @orders = current_customer.orders.all
+    #@order_items = OrderItem.all
+    #@order_items = OrderItem.where(order_id: order.id)
   end
 
   def show
     @order = Order.find(params[:id])
-    @order_items = OrderItem.all
+    @order_items = @order.order_items
     @postage = 800
   end
 
@@ -57,8 +55,6 @@ class Public::OrdersController < ApplicationController
     params.require(:order).permit(:customer_id, :payment, :address, :postal_code, :name, :postage, :total_price)
   end
 
-  #def order_item_params
-  #  params.require(:order_item).permit(item_id:[], price:[], amount:[])
-  #end
+  before_action :authenticate_customer!
 
 end

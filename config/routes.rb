@@ -5,13 +5,9 @@ Rails.application.routes.draw do
     get 'addresses/create'
 
   end
-  namespace :public do
-
-
-
-  end
+ 
   namespace :admin do
-    get 'order_items/update'
+    resources :order_items, only: [:update]
   end
   namespace :admin do
     resources :orders, only: [:show, :update]
@@ -30,7 +26,7 @@ Rails.application.routes.draw do
 
     get 'customers/update'
 
-    get 'customers/withdraw'
+    
   end
 
   root to: 'public/homes#top'
@@ -50,7 +46,8 @@ Rails.application.routes.draw do
   delete '/addresses/:id' => 'public/addresses#destroy', as: 'destroy_address'
   patch '/addresses/:id/edit' => 'public/addresses#update'
   get '/orders' => 'public/orders#index'
-  get '/customers/unsubscribe' => 'public/customers#unsubscribe'
+  get '/customers/unsubscribe' => 'public/customers#unsubscribe', as: 'unsubscribe_customer'
+  patch 'customers/withdraw' => 'public/customers#withdraw', as: 'withdraw_customer'
 
   get '/items' => 'public/items#index', as: 'index_items'
   get '/items/:id' => 'public/items#show', as: 'show_items'
