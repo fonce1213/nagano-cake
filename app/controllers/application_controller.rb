@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     
     if params[:genre_id].present?
       @genre = Genre.find(params[:genre_id])
-      @search_items = @genre.items.page(params[:page]).per(8)
+      @search_items = @genre.items.where(is_active: "true").page(params[:page]).per(8)
       @count = @search_items.total_count
     end
   end

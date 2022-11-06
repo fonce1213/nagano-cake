@@ -17,9 +17,11 @@
     <div class="d-flex justify-content-end">
       <% @items.each do |item| %>
         <div class="col">
-          <%= image_tag item.get_image(100,100) %></br>
-          <%= item.name %></br>
-          <%= number_to_currency(item.price, unit: "￥", format: "%u%n") %>
+          <%= link_to show_items_path(item.id) do %>
+            <%= image_tag item.get_image(100,100) %></br>
+            <%= item.name %></br>
+            <%= number_to_currency(item.price, unit: "￥", format: "%u%n") %>
+          <% end %>
         </div>
       <% end %>
     </div>

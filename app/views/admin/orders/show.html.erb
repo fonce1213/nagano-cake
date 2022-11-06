@@ -55,7 +55,7 @@
             <td class="align-middle"><%= order_item.amount %></td>
             <td class="align-middle"><%= order_item.subtotal.to_s(:delimited) %></td>
             <td class="align-middle">
-              <%= form_with model: OrderItem, url: admin_order_item_path(order_item.id), method: :patch do |f| %>
+              <%= form_with(model: [:admin, order_item]) do |f| %> <!-- @order_item, url: admin_order_item_path(order_item.id), method: :patch -->
                 <%= f.select :making_status,  OrderItem.making_statuses.keys.map {|k| [I18n.t("enums.order_item.making_status.#{k}"), k]} %>
               　<%= f.submit "更新", class: "btn btn-success" %>
               <% end %>
@@ -65,7 +65,7 @@
         </tbody>
       </table>
     </div>
-    <div class="col-4">
+    <div class="col-3 align-self-end">
       <table class="table table-borderless">
         <tr>
           <th>商品合計</th>
